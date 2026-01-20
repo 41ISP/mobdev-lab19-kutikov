@@ -4,18 +4,18 @@ import { useEffect, useState } from "react"
 import { getObject } from "../../utils/storage"
 import { formatDate } from "../../utils/formatters"
 import DaysList from "../../components/DaysList"
+import { daysSince } from "../../utils/utils"
 
 const History = () => {
     const { id } = useParams()
     const [habit, setHabit] = useState(undefined)
     useEffect(() => {
-       const loadHabits = async () => {
+        const loadHabits = async () => {
             const habits = await getObject("habits")
             setHabit(habits.find((el) => el.id == id))
-       }
-       loadHabits() 
+        }
+        loadHabits()
     }, [])
-    useEffect(() => {console.log(habit)}, [habit])
     const navigate = useNavigate()
     return habit && (
         <div class="container">
@@ -53,16 +53,19 @@ const History = () => {
                             <div class="stat-box-value">{habit.streak}</div>
                             <div class="stat-box-label">Current Streak</div>
                         </div>
-                        <div class="stat-box">
+                        {/* <div class="stat-box">
                             <div class="stat-box-value">23</div>
                             <div class="stat-box-label">Best Streak</div>
-                        </div>
+                        </div> */}
                         <div class="stat-box">
-                            <div class="stat-box-value">89%</div>
+                            <div class="stat-box-value">{Math.round(
+                                (habit.history.length /
+                                (daysSince(habit.startDate) + 1)) * 100
+                            )}%</div>
                             <div class="stat-box-label">Success Rate</div>
                         </div>
                         <div class="stat-box">
-                            <div class="stat-box-value">47</div>
+                            <div class="stat-box-value">{daysSince(habit.startDate) + 1}</div>
                             <div class="stat-box-label">Total Days</div>
                         </div>
                     </div>
