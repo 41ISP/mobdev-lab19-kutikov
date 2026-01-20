@@ -5,6 +5,12 @@ export const isEqToday = (date) => {
         today.getDate() == new Date(date).getDate()
 }
 
+export const checkCompleted = (date, arr) => {
+    const check = new Date(date).toDateString()
+    return arr.some((el) => 
+        new Date(el).toDateString() == check)
+}
+
 export const daysSince = (date) => {
     return Math.floor((new Date() - new Date(date))
         / (1000 * 60 * 60 * 24))
