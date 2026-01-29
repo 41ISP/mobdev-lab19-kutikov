@@ -76,7 +76,10 @@ const History = () => {
                     <div class="progress-bar-container">
                         <div class="progress-label">
                             <span>Completion Rate</span>
-                            <span><strong>27/30 days</strong></span>
+                            <span><strong>
+                                {habit.history.length}
+                                /
+                                {daysSince(habit.startDate) + 1} days</strong></span>
                         </div>
                         <div class="progress-bar">
                             <div class="progress-fill"></div>
@@ -87,13 +90,16 @@ const History = () => {
                             <div
                                 class="legend-color"
                             ></div>
-                            <span>Completed (27 days)</span>
+                            <span>Completed ({habit.history.length} days)</span>
                         </div>
                         <div class="legend-item">
                             <div
                                 class="legend-color"
                             ></div>
-                            <span>Missed (3 days)</span>
+                            <span>Missed (
+                                {(daysSince(habit.startDate) + 1)
+                                - habit.history.length
+                                } days)</span>
                         </div>
                     </div>
                 </div>
